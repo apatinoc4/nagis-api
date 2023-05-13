@@ -38,3 +38,14 @@ export const getUnitNameKey = async (name) => {
     console.error("Error fetching JSON data:", error);
   }
 };
+
+export const getUnitImage = async (imageName) => {
+  const imageUrl = `https://raw.githubusercontent.com/apatinoc4/wotv-ffbe-dump/master/img/units/${imageName}.png`;
+  const imageResponse = await fetch(imageUrl);
+  const imageBuffer = await imageResponse.arrayBuffer();
+  const base64Image = Buffer.from(new Uint8Array(imageBuffer)).toString(
+    "base64"
+  );
+
+  return base64Image;
+};
