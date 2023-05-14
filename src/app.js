@@ -1,6 +1,7 @@
+import cors from "cors";
 import express from "express";
-import path from "path";
-import unitRoutes from "./routes/wotv/unitRoutes.js";
+import imageRouter from "./routes/wotv/imgRoutes.js";
+import unitsRouter from "./routes/wotv/unitRoutes.js";
 
 const app = express();
 const port = 3001;
@@ -10,7 +11,12 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Nagis-api now listening on port ${port} 🔥🔥`);
 });
 
-app.use("/api/wotv/units", unitRoutes);
+app.use(cors());
+
+app.use(express.static("public"));
+
+app.use("/api/wotv/images", imageRouter);
+app.use("/api/wotv/units", unitsRouter);

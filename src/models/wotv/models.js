@@ -30,6 +30,7 @@ export const getUnitNameKey = async (name) => {
       const nameKey = jsonResponse.infos.find((unit) =>
         unit.value.startsWith(name)
       );
+
       return nameKey;
     } else {
       throw new Error("Error fetching JSON data");

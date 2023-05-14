@@ -1,8 +1,8 @@
 import { Router } from "express";
 import unitsController from "../../controllers/wotv/unitsController.js";
 
-const unitRoutes = new Router();
+const unitsRouter = new Router();
 
-unitRoutes.get("/unit", unitsController.getUnitByName);
+unitsRouter.get("/unit", unitsController.getUnitByName);
 
-export default unitRoutes;
+export default unitsRouter;
