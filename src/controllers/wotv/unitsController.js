@@ -1,4 +1,9 @@
-import { getUnitBody, getUnitNameKey } from "../../models/wotv/models.js";
+import {
+  getUnitBody,
+  getUnitNameKey,
+  getAllUnitsBodies,
+  getUnitsBySearchTerm,
+} from "../../models/wotv/models.js";
 
 const validateUnitVariant = (unitBody) =>
   unitBody.voiceId !== `${unitBody.charaId}_00`
@@ -6,14 +11,13 @@ const validateUnitVariant = (unitBody) =>
     : unitBody.charaId;
 
 const unitsController = {
-  getUnitByName: async (req, res) => {
-    const unitName = req.query.name;
-    const nameKey = await getUnitNameKey(unitName);
+  getUnitByKey: async (req, res) => {
+    const unitKey = req.query.key;
+    const nameKey = await getUnitNameKey(unitKey);
 
     if (nameKey) {
       const unitBody = (await getUnitBody(nameKey?.key)) || {};
       const isLimited = unitBody.collaboType ? true : false;
-
       const formattedUnit = {
         name: nameKey?.value,
         limited: isLimited,
@@ -23,6 +27,17 @@ const unitsController = {
       };
 
       return res.send(formattedUnit);
+    } else {
+      res.status(404).send({ message: "unit does not exist" });
+    }
+  },
+  getSearchUnitsByName: async (req, res) => {
+    const searchTerm = req.query.name;
+    const unitBodies = await getAllUnitsBodies();
+    const searchResults = await getUnitsBySearchTerm(searchTerm, unitBodies);
+
+    if (searchResults) {
+      return res.send(searchResults);
     } else {
       res.status(404).send({ message: "unit does not exist" });
     }
