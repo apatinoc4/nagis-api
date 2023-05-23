@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 const getFirstOccurrences = (array) => {
   const seenValues = new Set();
 
