@@ -5,6 +5,17 @@ import {
   getUnitsBySearchTerm,
 } from "../../models/wotv/models.js";
 
+const unitElements = [
+  "fire",
+  "ice",
+  "wind",
+  "earth",
+  "thunder",
+  "water",
+  "light",
+  "dark",
+];
+
 const validateUnitVariant = (unitBody) =>
   unitBody.voiceId !== `${unitBody.charaId}_00`
     ? unitBody.voiceId
@@ -19,8 +30,9 @@ const unitsController = {
       const unitBody = (await getUnitBody(nameKey?.key)) || {};
       const isLimited = unitBody.collaboType ? true : false;
       const formattedUnit = {
-        name: nameKey?.value,
+        element: unitElements[unitBody.elem[0] - 1],
         limited: isLimited,
+        name: nameKey?.value,
         image: `/api/wotv/images/unit?imageName=${validateUnitVariant(
           unitBody
         )}`,
