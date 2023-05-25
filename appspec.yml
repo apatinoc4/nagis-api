@@ -2,22 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/nagis-api
-permissions:
-  - object: /var/www/nagis-api
-    pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+    destination: /home/ubuntu/nagis-api
 hooks:
-  BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: ec2-user
   AfterInstall:
-    - location: scripts/build.sh
+    - location: scripts/after_install.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
   ApplicationStart:
-    - location: scripts/start_server.sh
+    - location: scripts/application_start.sh
       timeout: 300
-      runas: ec2-user
+      runas: root
