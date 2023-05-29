@@ -16,10 +16,12 @@ const unitElements = [
   "dark",
 ];
 
-const validateUnitVariant = (unitBody) =>
-  unitBody.voiceId !== `${unitBody.charaId}_00`
-    ? unitBody.voiceId
-    : unitBody.charaId;
+const validateUnitVariant = (unitBody) => {
+  if (!unitBody.voiceId || unitBody.voiceId === `${unitBody.charaId}_00`) {
+    return unitBody.charaId;
+  }
+  return unitBody.voiceId;
+};
 
 const unitsController = {
   getUnitByKey: async (req, res) => {
