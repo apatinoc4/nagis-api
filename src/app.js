@@ -20,3 +20,5 @@ app.use(express.static("public"));
 
 app.use("/api/wotv/images", imageRouter);
 app.use("/api/wotv/units", unitsRouter);
+
+export default app;
