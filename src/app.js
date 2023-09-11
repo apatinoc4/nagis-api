@@ -8,6 +8,8 @@ const port = 3001;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
 });
 
 app.listen(port, () => {
